@@ -136,3 +136,5 @@
 | outgoing_items      | users                | Many-to-One         | Banyak entri dicatat oleh satu user staf             |
 
 ---
+
+bhvvgchgcg
