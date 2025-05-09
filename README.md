@@ -1,61 +1,138 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><strong>Sistem Informasi menajemen data barang elektroni</strong></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
 
-## About Laravel
+![logo_unsulbar](public/logo.jpeg)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<b>Nita</b><br>
+<b>D0222044</b><br>
+<b>Framework Web Based</b><br>
+<b>2025</b>
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+### FITUR DAN ROLE
+### 1. **Admin**
+- **Kelola Akun Pengguna**:
+- **Kelola Data Barang**:
+- **Kelola Kategori Barang**:
+- **Lihat dan Cetak Semua Laporan**:
+- **Backup dan Restore Data**:
+- **Monitoring Aktivitas**:
+### 2. **Petugas Gudang/Staf**
+- **Input Barang Masuk**:
+- **Input Barang Keluar**:
+- **Update Kondisi Barang**:
+- **Ubah Lokasi Penyimpanan Barang**:
+- **Lihat Detail dan Stok Barang**:
+- **Cetak Laporan**:
+### 3. **Manajer**
+- **Lihat Laporan Stok**:
+- **Lihat Riwayat Barang Masuk & Keluar**:
+- **Ekspor Laporan**:
+- **Notifikasi Stok Minimum**:
+- **Berikan Arahan ke Staf** *(opsional)*:
+---
+### 1. **users**
+| Field           | Tipe Data       | Keterangan                  |
+|----------------|-----------------|-----------------------------|
+| id             | BIGINT (Auto)   | Primary key                 |
+| name           | VARCHAR(100)    | Nama pengguna               |
+| email          | VARCHAR(100)    | Email unik                  |
+| password       | VARCHAR(255)    | Password terenkripsi        |
+| role           | ENUM            | admin, staf, manajer        |
+| created_at     | TIMESTAMP       |                             |
+| updated_at     | TIMESTAMP       |                             |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 2. **categories**
+| Field           | Tipe Data       | Keterangan                  |
+|----------------|-----------------|-----------------------------|
+| id             | BIGINT (Auto)   | Primary key                 |
+| name           | VARCHAR(100)    | Nama kategori barang        |
+| created_at     | TIMESTAMP       |                             |
+| updated_at     | TIMESTAMP       |                             |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+### 3. **items** (Data master barang)
+| Field           | Tipe Data       | Keterangan                      |
+|----------------|-----------------|---------------------------------|
+| id             | BIGINT (Auto)   | Primary key                     |
+| name           | VARCHAR(100)    | Nama barang                     |
+| category_id    | BIGINT          | Foreign key → categories.id     |
+| code           | VARCHAR(50)     | Kode unik barang                |
+| specification  | TEXT            | Spesifikasi barang              |
+| condition      | ENUM            | baik, rusak, servis             |
+| location       | VARCHAR(100)    | Lokasi penyimpanan barang       |
+| quantity       | INTEGER         | Jumlah total barang             |
+| created_at     | TIMESTAMP       |                                 |
+| updated_at     | TIMESTAMP       |                                 |
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+### 4. **incoming_items** (Barang masuk)
+| Field           | Tipe Data       | Keterangan                      |
+|----------------|-----------------|---------------------------------|
+| id             | BIGINT (Auto)   | Primary key                     |
+| item_id        | BIGINT          | Foreign key → items.id          |
+| quantity       | INTEGER         | Jumlah barang masuk             |
+| source         | VARCHAR(100)    | Asal barang (vendor/pembelian) |
+| date_in        | DATE            | Tanggal masuk                   |
+| user_id        | BIGINT          | Petugas yang input              |
+| created_at     | TIMESTAMP       |                                 |
+| updated_at     | TIMESTAMP       |                                 |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+### 5. **outgoing_items** (Barang keluar)
+| Field           | Tipe Data       | Keterangan                      |
+|----------------|-----------------|---------------------------------|
+| id             | BIGINT (Auto)   | Primary key                     |
+| item_id        | BIGINT          | Foreign key → items.id          |
+| quantity       | INTEGER         | Jumlah barang keluar            |
+| destination    | VARCHAR(100)    | Tujuan penggunaan/pemakai       |
+| date_out       | DATE            | Tanggal keluar                  |
+| user_id        | BIGINT          | Petugas yang input              |
+| created_at     | TIMESTAMP       |                                 |
+| updated_at     | TIMESTAMP       |                                 |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+### 6. **activity_logs** (Opsional: Log aktivitas pengguna)
+| Field           | Tipe Data       | Keterangan                  |
+|----------------|-----------------|-----------------------------|
+| id             | BIGINT (Auto)   | Primary key                 |
+| user_id        | BIGINT          | Foreign key → users.id      |
+| action         | VARCHAR(255)    | Deskripsi aktivitas         |
+| created_at     | TIMESTAMP       |                             |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
+## 🔗 Jenis Relasi dan Tabel yang Berelasi
+###  One-to-Many (1:M)
 
-## Security Vulnerabilities
+| Tabel Utama        | Tabel Relasi         | Jenis Relasi        | Keterangan                                           |
+|--------------------|----------------------|----------------------|------------------------------------------------------|
+| users              | incoming_items        | One-to-Many         | Satu user bisa mencatat banyak data barang masuk     |
+| users              | outgoing_items        | One-to-Many         | Satu user bisa mencatat banyak data barang keluar    |
+| users              | activity_logs         | One-to-Many         | Satu user bisa melakukan banyak aktivitas            |
+| categories         | items                 | One-to-Many         | Satu kategori memiliki banyak barang                 |
+| items              | incoming_items        | One-to-Many         | Satu barang bisa masuk berkali-kali                 |
+| items              | outgoing_items        | One-to-Many         | Satu barang bisa keluar berkali-kali                |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
+### Many-to-One (M:1)
 
-## License
+| Tabel Relasi       | Tabel Utama          | Jenis Relasi        | Keterangan                                           |
+|--------------------|----------------------|----------------------|------------------------------------------------------|
+| incoming_items      | items                | Many-to-One         | Banyak data barang masuk mengacu ke satu barang      |
+| outgoing_items      | items                | Many-to-One         | Banyak data barang keluar mengacu ke satu barang     |
+| items              | categories           | Many-to-One         | Banyak barang berada dalam satu kategori             |
+| incoming_items      | users                | Many-to-One         | Banyak entri dicatat oleh satu user staf             |
+| outgoing_items      | users                | Many-to-One         | Banyak entri dicatat oleh satu user staf             |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
